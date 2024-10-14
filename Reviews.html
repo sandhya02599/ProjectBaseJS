@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Reviews</title>
+  <style>
+    Global Variables
+/* :root {
+  --clr-grey-10: #f4f4f9;
+  --clr-grey-1: #333;
+  --clr-grey-5: #777;
+  --clr-primary-5: #61dafb;
+  --clr-primary-7: #21a1f1;
+  --clr-primary-10: #e0f7ff;
+  --ff-primary: 'Arial', sans-serif;
+  --ff-secondary: 'Verdana', sans-serif;
+  --radius: 0.5rem;
+  --spacing: 0.1rem;
+  --transition: all 0.3s ease-in-out;
+  --light-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  --fixed-width: 620px;
+} */
+
+/* Global Styles */
+body {
+  font-family: var(--ff-secondary);
+  background: var(--clr-grey-10);
+  color: var(--clr-grey-1);
+  line-height: 1.5;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: var(--spacing);
+  text-transform: capitalize;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  font-family: var(--ff-primary);
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+p {
+  margin-bottom: 1.25rem;
+  color: var(--clr-grey-5);
+}
+
+/* Section Styles */
+.section {
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.underline {
+  height: 0.25rem;
+  width: 5rem;
+  background: var(--clr-primary-5);
+  margin: 0.5rem auto;
+}
+
+.container {
+  width: 80vw;
+  max-width: var(--fixed-width);
+  margin: 0 auto;
+}
+
+/* Review Card Styles */
+.review {
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.review:hover {
+  box-shadow: var(--dark-shadow);
+}
+
+.img-container {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  overflow: hidden;
+}
+
+#person-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.quote-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--clr-primary-5);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: white;
+  transform: translateY(25%);
+}
+
+#author {
+  margin-bottom: 0.25rem;
+}
+
+#job {
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  color: var(--clr-primary-5);
+  font-size: 0.85rem;
+}
+
+#info {
+  margin-bottom: 0.75rem;
+}
+
+/* Button Styles */
+.button-container {
+  margin-bottom: 0.5rem;
+}
+
+.prev-btn, .next-btn {
+  background: transparent;
+  border: none;
+  color: var(--clr-primary-7);
+  font-size: 1.25rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.prev-btn:hover, .next-btn:hover {
+  color: var(--clr-primary-5);
+}
+
+.random-btn {
+  background: var(--clr-primary-10);
+  color: var(--clr-primary-5);
+  padding: 0.25rem 0.5rem;
+  text-transform: capitalize;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.random-btn:hover {
+  background: var(--clr-primary-5);
+  color: rgb(233, 20, 20);
+}
+
+/* Responsive Styles */
+@media screen and (min-width: 800px) {
+  h2 {
+    font-size: 2.5rem;
+  }
+
+  body {
+    font-size: 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section">
+      <div class="title">
+        <h2>our reviews</h2>
+        <div class="underline"></div>
+      </div>
+      <div class="container">
+        <article class="review">
+          <div class="img-container">
+            <img src="https://via.placeholder.com/150" id="person-img" alt="person">
+            <span class="quote-icon">
+              <i class="fas fa-quote-right"></i>
+            </span>
+          </div>
+          <h4 id="author">John Doe</h4>
+          <p id="job">Web Developer</p>
+          <p id="info">John is a highly skilled web developer with over 10 years of experience in the field.</p>
+          <div class="button-container">
+            <button class="prev-btn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <button class="next-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <button class="random-btn">surprise me</button>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script>
+    // Review data
+const reviews = [
+  {
+    id: 1,
+    name: "John Doe",
+    job: "Web Developer",
+    img: "https://via.placeholder.com/150",
+    text: "John is a highly skilled web developer with over 10 years of experience in the field."
+  },
+  {
+    id: 2,
+    name: "Sara Smith",
+    job: "UX Designer",
+    img: "https://via.placeholder.com/150/FF00FF/FFFFFF?text=Sara",
+    text: "Sara has a unique talent for designing intuitive user interfaces."
+  },
+  {
+    id: 3,
+    name: "Peter Johnson",
+    job: "Software Engineer",
+    img: "https://via.placeholder.com/150/FFFF00/000000?text=Peter",
+    text: "Peter excels at building robust and scalable applications."
+  },
+  {
+    id: 4,
+    name: "Emily Davis",
+    job: "Graphic Designer",
+    img: "https://via.placeholder.com/150/008000/FFFFFF?text=Emily",
+    text: "Emily is an amazing graphic designer with a sharp eye for visual aesthetics."
+  }
+];
+
+// DOM elements
+const img = document.getElementById('person-img');
+const author = document.getElementById('author');
+const job = document.getElementById('job');
+const info = document.getElementById('info');
+const prevBtn = document.querySelector('.prev-btn');
+const nextBtn = document.querySelector('.next-btn');
+const randomBtn = document.querySelector('.random-btn');
+
+let currentItem = 0;
+
+// Show person on page load
+window.addEventListener('DOMContentLoaded', function() {
+  showPerson(currentItem);
+});
+
+// Show person based on item index
+function showPerson(index) {
+  const person = reviews[index];
+  img.src = person.img;
+  author.textContent = person.name;
+  job.textContent = person.job;
+  info.textContent = person.text;
+}
+
+// Show next person
+nextBtn.addEventListener('click', function() {
+  currentItem = (currentItem + 1) % reviews.length;
+  showPerson(currentItem);
+});
+
+// Show previous person
+prevBtn.addEventListener('click', function() {
+  currentItem = (currentItem - 1 + reviews.length) % reviews.length;
+  showPerson(currentItem);
+});
+
+// Show random person
+randomBtn.addEventListener('click', function() {
+  currentItem = Math.floor(Math.random() * reviews.length);
+  showPerson(currentItem);
+});
+
+  </script>
+</body>
+</html>

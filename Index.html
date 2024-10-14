@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            background: linear-gradient(90deg, #bb2d8c 0%, #45a9bb 100%);
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            width: 100%;
+            height: auto;
+            background-color: #d8b3b3;
+            color: rgb(17, 17, 17);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .logo {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links li a {
+            color: rgb(12, 12, 12);
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+
+        .nav-links li a:hover {
+            background-color: #fffdfd;
+            border-radius: 4px;
+        }
+
+        /* Timer Container */
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .timer-content {
+            width: 320px;
+            padding: 1.5rem;
+            border: 2px solid black;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .counterimg img {
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+        }
+
+        #timer-title {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .set-timer {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .set-time {
+            width: 90px;
+            padding: 0.5rem;
+            border: 1px solid gray;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .display-timer {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .control-timer {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .btn {
+            width: 90px;
+            padding: 0.5rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            background-color: aquamarine;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #92fe9d;
+            transform: scale(1.05);
+        }
+
+        #time-up {
+            font-size: 1.2rem;
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .timer-content {
+                width: 90%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        .menu-icon {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="image/logo.svg" alt="Logo" width="100px">
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-icon" onclick="toggleMenu()">☰</button>
+    </nav>
+
+    <!-- Timer Container -->
+    <div class="timer-container">
+        <div class="counterimg">
+            <img src="image/gift.jpeg" alt="Timer Gift">
+        </div>
+        <div class="timer-content">
+            <h2 id="timer-title">Countdown Timer</h2>
+            <div class="set-timer">
+                <input type="text" class="set-time" id="hours" placeholder="Hours">
+                <input type="text" class="set-time" id="minutes" placeholder="Minutes">
+                <input type="text" class="set-time" id="seconds" placeholder="Seconds">
+            </div>
+            <div class="display-timer">
+                <span id="display-hours">00</span> :
+                <span id="display-minutes">00</span> :
+                <span id="display-seconds">00</span>
+            </div>
+            <p id="time-up"></p>
+            <div class="control-timer">
+                <button class="btn" id="start-btn">Start</button>
+                <button class="btn" id="pause-btn">Pause</button>
+                <button class="btn" id="reset-btn">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Countdown Timer -->
+    <script>
+        const hoursValue = document.querySelector('#hours');
+        const minutesValue = document.querySelector('#minutes');
+        const secondsValue = document.querySelector('#seconds');
+        const displayHours = document.querySelector('#display-hours');
+        const displayMinutes = document.querySelector('#display-minutes');
+        const displaySeconds = document.querySelector('#display-seconds');
+        let timeRemaining;
+        let countdown;
+
+        document.querySelector('.control-timer').addEventListener('click', (e) => {
+            if (e.target.id === 'start-btn') {
+                const hours = parseInt(hoursValue.value) || 0;
+                const minutes = parseInt(minutesValue.value) || 0;
+                const seconds = parseInt(secondsValue.value) || 0;
+                timeRemaining = (hours * 3600) + (minutes * 60) + seconds;
+                countdown = setInterval(updateTimer, 1000);
+                document.querySelector('#time-up').textContent = '';
+            } else if (e.target.id === 'pause-btn') {
+                clearInterval(countdown);
+            } else if (e.target.id === 'reset-btn') {
+                clearInterval(countdown);
+                hoursValue.value = '';
+                minutesValue.value = '';
+                secondsValue.value = '';
+                displayHours.textContent = '00';
+                displayMinutes.textContent = '00';
+                displaySeconds.textContent = '00';
+                document.querySelector('#time-up').textContent = '';
+            }
+        });
+
+        function updateTimer() {
+            if (timeRemaining <= 0) {
+                clearInterval(countdown);
+                document.querySelector('#time-up').textContent = "Time is up!";
+                return;
+            } else {
+                timeRemaining--;
+                const hours = Math.floor(timeRemaining / 3600);
+                const minutes = Math.floor((timeRemaining % 3600) / 60);
+                const seconds = timeRemaining % 60;
+                displayHours.textContent = String(hours).padStart(2, '0');
+                displayMinutes.textContent = String(minutes).padStart(2, '0');
+                displaySeconds.textContent = String(seconds).padStart(2, '0');
+            }
+        }
+
+        // Menu Toggle for Mobile
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavBar-JS</title>
+    <style>
+   
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+  
+    .navbar {
+        background-color: #d8b3b3;
+        color: rgb(17, 17, 17);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+  
+    .logo {
+        font-size: 25px;
+        font-weight: bold;
+    }
+  
+    .nav-links {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+  
+    .nav-links li {
+       margin-left: 20px;
+    }
+  
+    .nav-links li a {
+       color: rgb(12, 12, 12);
+       text-decoration: none;
+       padding: 10px 15px;
+       display: flex;
+    }
+  
+    .nav-links li a:hover {
+        background-color: #fffdfd;
+        border-radius: 4px;
+    }
+  
+    .menu-icon {
+        display: none;
+        background-color: #333;
+        color: white;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+  
+    @media (max-width: 768px) {
+       .nav-links {
+           display: none;
+           flex-direction: column;
+           position: absolute;
+           top: 60px;
+           right: 0;
+           background-color: #fff;
+           width: 200px;
+           text-align: right;
+        }
+  
+        .nav-links li {
+            margin: 10px 0;
+        }
+  
+        .menu-icon {
+           display: block;
+        }
+    }
+  
+    .show-menu {
+        display: flex !important;
+    }
+</style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Navigation Bar</title>
+  <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+        <img src="image/Logo1.svg">
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+  </nav>
+
+  
+  <section id="home"><h2>Home Section</h2></section>
+  <section id="about"><h2>About Section</h2></section>
+  <section id="team"><h2>Team Section</h2></section>
+  <section id="contact"><h2>Contact Section</h2></section>
+
+  <script>
+       // script.js
+       function toggleMenu() {
+         var navLinks = document.getElementById("navLinks");
+         if (navLinks.classList.contains("show-menu")) {
+           navLinks.classList.remove("show-menu");
+        } 
+        else {
+            navLinks.classList.add("show-menu");
+            }
+        }
+  </script>
+</body>
+</html>
+</body>
+</html>
